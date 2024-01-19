@@ -4,15 +4,108 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-    <title>Example Student's HCDE 439 Physical Computing Page!</title>
+    <title>Lia's PHysical Computing Page!</title>
 
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Example Student's Assignment 2!</h1>
+    <h1>Assignment 2!</h1>
     <div class="header">
-      <img src="red-panda.jpg" />
-      <p>Here is all the documentation for assignment 2!</p>
+      <img src="hcde439_a2.gif" />
+      <p>Here is all the documentation for assignment 2!
+
+        I used a 10K Ω resistor for the button and three 220Ω resistors
+        for the LEDs. 
+
+        For the button, I choose a 10K Ω resistor it is strong enough to pull voltage
+        to ground, wile still limiting the current sufficiently. 
+
+        For the red LEDs, I used 3 220Ω resistors. I calculated (5V - 1.8V)/0.02A = 160Ω. 
+        Hence, I decided to round up and use 3 220 Ω resistors.  
+      </p>
     </div>
+
+    <div class="Schematic">
+      <h2>Schematic</h2>
+        <img src="hcde439_a2schematic.jpeg" />
+        <p>Schematic drawing of circuit with one button, and 
+          three red LEDs. 
+        </p>
+    </div>
+
+    <div class="Image of Circuit">
+      <h2>Image of Circuit</h2>
+        <img src="hcde439_a2.jpg"/>
+    </div>
+
+    <div> 
+      <h2>Code Snippet</h2>
+      <pre>
+        <code> 
+
+          int ledPin = 11;  // LED connected to digital pin 11
+          int ledPin2 = 10; // LED connected to digital pin 10
+          int ledPin3 = 5;  // LED connected to digital pin 5
+          int buttonPin = 2; // button connected to digital pin 2
+
+          // initializes the button state 
+          int buttonState = 0; 
+
+          void setup() {
+            // initializes the button as an input
+            pinMode(buttonPin, INPUT); 
+          }
+
+          void loop() {
+            // fade in from min to max in increments of 5 points:
+            buttonState = digitalRead(buttonPin);  // read the state of the pushbutton value
+
+            if (buttonState == HIGH) {  // check if the pushbutton is pressed
+              fadeEffect();  // perform the fading effect
+            }
+          }
+
+          void fadeEffect() {
+            // fade in from min to max in increments of 5 points:
+            for (int fadeValue = 0; fadeValue <= 255; fadeValue += 5) {
+              analogWrite(ledPin, fadeValue); // fades LED connected to digital pin 11 on
+              analogWrite(ledPin2, fadeValue); // fades LED connected to digital pin 10 on
+              analogWrite(ledPin3, fadeValue); // fades LED connected to digital pin 5 on
+              delay(30);
+            }
+
+            // fade out from max to min in increments of 5 points:
+            for (int fadeValue = 255; fadeValue >= 0; fadeValue -= 5) {
+              analogWrite(ledPin, fadeValue); // fades LED connected to digital pin 11 off
+              analogWrite(ledPin2, fadeValue); // fades LED connected to digital pin 10 off
+              analogWrite(ledPin3, fadeValue); // fades LED connected to digital pin 5 off
+              delay(30);
+            }
+          }
+        </code>
+      </pre>
+    </div>  
+
+    <div class="Additional Questions">
+      <h2>Additional Questions</h2>  
+        <h3>Question 1</h3>
+          <img src="hcde439_graph.png">
+          <p>Graph representing voltage across LED of analogWrite(led, 64), analogWrite(led, 128),
+            and analogWrite(led, 255). 
+          </p>
+
+        <h3>Question 2</h3>
+          <p>Given my schematic, circuit, and firmware, I believe my current could run 
+            for around 45.71 hours if powered by a 1200 mAh battery. This is because 
+            the battery life = battery capacity / (current draw of the three LEDs). 
+
+            battery capacity = 1200 mAh = 1.2 Ah 
+            current draw = 8.75 mA * 3 
+
+            1.2 Ah / 26.25 * 10^-3 A = ~ 45.71 hrs  
+          </p>
+
+    </div>
+
   </body>
 </html>
