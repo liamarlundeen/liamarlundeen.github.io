@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 
     <title>Lia's PHysical Computing Page!</title>
 
@@ -10,7 +13,7 @@
   </head>
   <body>
     <h1>Assignment 2!</h1>
-    <div class="header">
+    <div class="header", style="margin-bottom: 20px;">
       <img src="hcde439_a2.gif" />
       <p>Here is all the documentation for assignment 2! <br><br>
 
@@ -26,7 +29,7 @@
       </p>
     </div>
 
-    <div class="Schematic">
+    <div class="Schematic", style="margin-bottom: 20px;">
       <h2>Schematic</h2>
         <img src="hcde439_a2schematic.jpeg" /> 
 
@@ -35,12 +38,12 @@
         </p>
     </div>
 
-    <div class="Image of Circuit">
+    <div class="Image of Circuit", style="margin-bottom: 20px;">
       <h2>Image of Circuit</h2>
         <img src="hcde439_a2.jpg"/>
     </div>
 
-    <div> 
+    <div class="Code", style="margin-bottom: 20px;">
       <h2>Code Snippet</h2>
       <pre>
         <code> 
@@ -88,25 +91,49 @@
       </pre>
     </div>  
 
-    <div class="Additional Questions">
+    <div class="Additional Questions", style="margin-bottom: 20px;">
       <h2>Additional Questions</h2>  
         <h3>Question 1</h3>
           <img src="hcde439_graph.png">
 
           <p>Graph representing voltage across LED of analogWrite(led, 64), analogWrite(led, 128),
-            and analogWrite(led, 255). 
+            and analogWrite(led, 255). <br><br><br><br>
           </p>
 
         <h3>Question 2</h3>
-          <p>Given my schematic, circuit, and firmware, I believe my current could run 
-            for around 45.71 hours if powered by a 1200 mAh battery. This is because 
-            the battery life = battery capacity / (current draw of the three LEDs). 
+          <!-- <p>Given my schematic, circuit, and firmware, I believe my current could run 
+            for around 45.71 hours if powered by a 1200 mAh battery. <br><br>
+            
+            This is because the battery life = battery capacity / (current draw of the three LEDs). <br><br>
 
             battery capacity = 1200 mAh = 1.2 Ah 
             current draw = 8.75 mA * 3 
 
             1.2 Ah / 26.25 * 10^-3 A = ~ 45.71 hrs  
+          </p> -->
+
+          <p>Given my schematic, circuit, and firmware, I believe my current could run 
+            for around 45.71 hours if powered by a 1200 mAh battery. This is because 
+            the battery life is calculated as:</p>
+      
+          <p>
+            \[
+            \text{{battery capacity}} = 1200 \, \text{{mAh}} = 1.2 \, \text{{Ah}}
+            \]
           </p>
+      
+          <p>
+            \[
+            \text{{current draw}} = 8.75 \, \text{{mA}} \times 3
+            \]
+          </p>
+      
+          <p>
+            \[
+            \frac{{1.2 \, \text{{Ah}}}}{{26.25 \times 10^{-3} \, \text{{A}}}} = \approx 45.71 \, \text{{hrs}}
+            \]
+          </p>
+        </div>
 
     </div>
 
