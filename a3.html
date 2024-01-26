@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    <title>Lia's PHysical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 2!</h1>
+    <div class="header", style="margin-bottom: 20px;">
+      <img src="hcde439_a3.gif" />
+      <p>Here is all the documentation for assignment 3! <br><br>
+
+       I used one photoresistor and three LEDS (red, white, and blue). <br><br>
+       
+       I used a 10K Ω resistor as a pull down resistor for the photoresistor as it provides enough
+       resistance to pull the voltage to LOW when the photoresistor is covered. <br><br>
+
+        For the red LED, I used 1 220Ω resistor. I calculated: <br><br>
+        \( R = \frac{{5V - 1.8V}}{{0.02A}} = 160 \Omega \). <br><br>
+        Hence, I decided to round up and use a 220 Ω resistors.  <br><br>
+
+        For the white & blue LEDS I used 2 100Ω resistors. I calculated: <br><br>
+        \[ \frac{{5V - 3.3V}}{{0.02A}} = 85 \Omega \] <br><br>
+        Hence, I decided to user 2 100Ω resistors. <br><br>
+
+      </p>
+    </div>
+
+    <div class="Schematic", style="margin-bottom: 20px;">
+      <h2>Schematic</h2>
+        <img src="hcde439_a2schematic.jpeg" /> 
+
+        <p>Schematic drawing of circuit with one button, and 
+          three red LEDs. 
+        </p>
+    </div>
+
+    <div class="Image of Circuit", style="margin-bottom: 20px;">
+      <h2>Image of Circuit</h2>
+        <img src="hcde439_a3.jpg"/>
+        <p>Image of circiut with photoresistor, and three LEDS (red, white, and blue). </p> <br><br>
+
+    </div>
+
+    <div class="Code", style="margin-bottom: 20px;">
+      <h2>Code Snippet</h2>
+      <pre>
+        <code> 
+          const int photoresistorPin = A0;  // Photoresistor connected to analog pin A0
+          const int ledPin1 = 10;          // First LED connected to digital pin 10
+          const int ledPin2 = 9;          // Second LED connected to digital pin 9
+          const int ledPin3 = 8;          // Third LED connected to digital pin 8
+
+          void setup() {
+            Serial.begin(9600);  // Initialize serial communication
+          }
+
+          void loop() {
+            int sensorValue = analogRead(photoresistorPin);  // Read the analog value from the photoresistor
+
+            // Map the sensor value to the LED brightness range (0-255)
+            int brightness = map(sensorValue, 0, 1023, 0, 255);
+
+            // Control the LEDs based on the brightness value
+            if (sensorValue > 500) {
+              analogWrite(ledPin1, brightness);
+              analogWrite(ledPin2, brightness);
+              analogWrite(ledPin3, brightness);
+            } else {
+              analogWrite(ledPin1, LOW);  // Turn off the LEDs if below the threshold
+              analogWrite(ledPin2, LOW);
+              analogWrite(ledPin3, LOW);
+            }
+
+            // Print sensor value and brightness to the serial port
+            Serial.print("Sensor Value: ");
+            Serial.print(sensorValue);
+            Serial.print(" | Brightness: ");
+            Serial.println(brightness);
+
+            delay(100);  // Delay for stability and to avoid flooding the serial port
+          }
+
+        </code>
+      </pre>
+    </div>  
+
+    <div class="Additional Questions", style="margin-bottom: 20px;">
+      <h2>Additional Questions</h2>  
+        <h3>Question 1</h3>
+          <img src="hcde439_a3_add1.jpeg">
+
+          <p> Calculations showing that the variable resistor can be either R1 or R2. <br><br>
+          </p>
+
+        <h3>Question 2</h3>
+        <img src="hcde439_a3_graph.jpeg">
+
+        <p> Graph of time vs voltage of circuit. <br><br>
+        </p>
+
+        <h3>Question 3</h3>
+        <p>If I had a 10 bit PWN and a 16-bit analog-to-digital converter instead, my map() code would be: <br><br>
+          
+          <pre>
+            <code>
+              int pwmValue = analogRead(pwmPin);  // Assuming analogRead() returns a 16-bit value
+              int mappedValue = map(pwmValue, 0, 1023, 0, 65535);
+              analogWrite(9, outputValue / 4);
+            </code>
+        </pre>
+
+        <p>The output value is divided by 4, (2^2), because it has to reduce outputValue back to 8-bit. </p>
+        
+          
+
+
+        </p>
+
+    </div>
+
+  </body>
+</html>
