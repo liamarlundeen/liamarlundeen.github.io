@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    <title>Lia's PHysical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 4!</h1>
+    <img src="hcde439_a4.gif" />
+    <div class="header", style="margin-bottom: 20px;">
+      <p>Here is all the documentation for assignment 4! <br><br>
+
+       I created a circuit with a capacitor using my car keys to activate a servo motor. <br><br>
+       
+       I used a 1M Ω resistor for the capacitor, as to activate absolute touch capacitance. <br><br>
+
+
+      </p>
+    </div>
+
+    <div class="Schematic", style="margin-bottom: 20px;">
+      <h2>Schematic</h2>
+        <img src="hcde439_a4_schematic.jpeg" /> 
+
+        <p>Schematic drawing of capacitor and servo motor circuit. <br><br>
+        </p>
+    </div>
+
+    <div class="Image of Circuit", style="margin-bottom: 20px;">
+      <h2>Image of Circuit</h2>
+        <img src="hcde439_a4_circuit.jpg"/>
+        <p>Image of circiut with capacitor from car keys & servo motor circuit. </p> <br><br>
+
+        
+
+    </div>
+
+    <div class="Code", style="margin-bottom: 20px;">
+      <h2>Code Snippet</h2>
+      <pre>
+        <code> 
+        #include <CapacitiveSensor.h>
+            #include <Servo.h>
+            
+            /*
+                * CapitiveSense Library Demo Sketch
+                * Paul Badger 2008
+                * Uses a high value resistor e.g. 10M between send pin and receive pin
+                * Resistor effects sensitivity, experiment with values, 50K - 50M. Larger resistor values yield larger sensor values.
+                * Receive pin is the sensor pin - try different amounts of foil/metal on this pin
+                */
+            
+            Servo myServo;  // create a servo object
+            CapacitiveSensor   cs_4_2 = CapacitiveSensor(4,2); // 10M resistor between pins 4 & 2, pin 2 is sensor pin
+
+            int pos = 0; // sets position of servo 
+            
+            void setup()                    
+            {
+                cs_4_2.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on channel 1 - just as an example
+                Serial.begin(9600);
+                myServo.attach(9); // attaches the servo on pin 9 to the servo object
+            }
+            
+            void loop()                    
+            {
+                myServo.write(pos); //some angle between 0 and 180
+            
+                long start = millis(); // line records the current time in milliseconds
+                long total1 =  cs_4_2.capacitiveSensor(30); // returns a long integer that indicates the capacitive reading
+            
+                Serial.print(millis() - start); // check on performance in milliseconds
+                Serial.print("\t"); // tab character for debug windown spacing
+            
+                Serial.print(total1); // print sensor output 1
+                Serial.println("\t");
+            
+            
+                if(total1 > 300) // Change this threshold as needed
+                {
+                    while(total1 > 300) {
+                    
+                        start = millis();
+                        Serial.print(millis() - start); // check on performance in milliseconds
+                        Serial.print("\t"); // tab character for debug windown spacing
+                        Serial.print(total1); // print sensor output 1
+                        Serial.println("\t");
+                
+                        // for loop that turns the servo motor 0 -> 180 degrees
+                        for (pos = 0; pos <= 180; pos += 1) {  
+                            myServo.write(pos);              
+                            delay(10);                       
+                        }
+                        
+                        // for loop that turns the servo motor 180 -> 0 degrees 
+                        for (pos = 180; pos >= 0; pos -= 1) { 
+                            myServo.write(pos);              
+                            delay(10);                       
+                        }
+                        total1 =  cs_4_2.capacitiveSensor(30); // Check the capacitance again
+                    }
+                }
+            }
+                
+
+        </code>
+      </pre>
+    </div>  
+
+    <div class="Additional Questions", style="margin-bottom: 20px;">
+      <h2>Additional Questions</h2>  
+        <h3>Question 1</h3>
+          <img src="">
+
+          <p> . <br><br>
+          </p>
+
+        <h3>Question 2</h3>
+
+        <p> If my input device was slightly broken, leading it to give erroneous reading 1% of the time, <br><br>
+            I would adress this by having some expectation for how the sensorValue (or capacitiveSensor in my case),  <br><br>
+            can change. If the sensorValue is 2.5 times higher then the previous sensor value, then it would be fair to asusme <br><br>
+            that data point is an outlier. 
+
+            <pre>
+                <code>
+                    if (sensorValue > 2.5*prevSensorValue) {
+                        // if it’s 2.5 times higher something must be wrong & the data is probably an outlier!
+                        sensorValue = prevSensorValue;
+                        }
+                </code>
+            </pre>
+
+            <br><br>
+                
+
+
+        </p>
+
+        <h3>Question 3</h3>
+        <p>If I the input device is slightly noisy, leading to a 10% deviation, then I woould smooth out the data. <br><br>
+            I would average the readings. Example: 
+          
+          <pre>
+            <code>
+                int readings[10];  // Array to hold readings
+                int numReadings = 10;  // Number of readings to take
+
+                // Take 10 readings
+                for (int i = 0; i < numReadings; i++) {
+                readings[i] = analogRead(A0);  // Replace with your sensor reading function
+                delay(10);  // Small delay for stability
+                }
+
+                // Calculate the average
+                int sum = 0;
+                for (int i = 0; i < numReadings; i++) {
+                sum += readings[i];
+                }
+                int average = sum / numReadings;
+            </code>
+        </pre>
+
+
+        </p>
+
+    </div>
+
+  </body>
+</html>
