@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    <title>Lia's Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 5!</h1>
+    <img src="hcde439_a5.gif" />
+    <div class="header", style="margin-bottom: 20px;">
+      <p>Here is all the documentation for assignment 5! <br><br>
+
+       I created a circuit with a capacitor using my car keys to activate an LED light strip. <br><br>
+       
+       I used a 1M Ω resistor for the capacitor, as to activate absolute touch capacitance. <br><br>
+
+
+      </p>
+    </div>
+
+    <div class="Schematic", style="margin-bottom: 20px;">
+      <h2>Schematic</h2>
+        <img src="hcde439_a5_schematic.jpeg" /> 
+
+        <p>Schematic drawing of capacitor and LED light strip. <br><br>
+        </p>
+    </div>
+
+    <div class="Image of Circuit", style="margin-bottom: 20px;">
+      <h2>Image of Circuit</h2>
+        <img src="hcde439_a5.jpg"/>
+        <p>Image of circiut with capacitor from car keys & LED light. </p> <br><br>
+
+        
+
+    </div>
+
+    <div class="Code", style="margin-bottom: 20px;">
+      <h2>Code Snippet</h2>
+      <pre>
+        <code> 
+          #include <CapacitiveSensor.h>
+
+            CapacitiveSensor cs_4_2 = CapacitiveSensor(4,2); //
+            
+            
+            int LED_PIN  = 9 // The pin connected to the LED strip
+            
+            void setup() {
+              cs_4_2.set_CS_AutocaL_Millis(0xFFFFFFFF);
+              Serial.begin(9600); // begins serial monitor processsing 
+              pinMode(LED_PIN, OUTPUT); // Set the LED pin as output
+            }
+            
+            void loop() {
+              digitalWrite(LED_PIN, LOW); // LED light off
+              long start = millis(); // starts serial reading time 
+              long total1 = cs_4_2.capacitiveSensor(30); // reads capactive touch sensor
+              
+            
+              Serial.print(millis() - start); // time from start
+              Serial.print("\t");
+              Serial.print(total1); // prints capactive touch reading to serial monitor 
+              Serial.println("\t");
+             
+            // if keys are touched -> led light turns on, if not, LED light turns off 
+              if (total1 > 300) {
+                digitalWrite(LED_PIN, HIGH); // Turn the LED on
+              } else {
+                digitalWrite(LED_PIN, LOW); // Turn the LED off
+              }
+            
+              // delay(10); // delay for 10 secs 
+            }
+                
+
+        </code>
+      </pre>
+    </div>  
+
+    <div class="Additional Questions", style="margin-bottom: 20px;">
+      <h2>Additional Questions</h2>  
+        <h3>Question 1</h3>
+          
+
+          <p> According to the datasheet of the component,the maximum body diode forward current is 80A. <br><br>
+          </p>
+
+        <h3>Question 2</h3>
+
+        <p> 
+
+        </p>
+
+        <h3>Question 3</h3>
+        <p>
+
+
+        </p>
+
+    </div>
+
+  </body>
+</html>
